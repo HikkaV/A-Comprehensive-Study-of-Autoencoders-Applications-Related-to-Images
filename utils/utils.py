@@ -28,7 +28,8 @@ def load_n_samples(abs_path, dim=None, color_mode='rgb', samples=100, workers=1,
 
     files = os.listdir(abs_path)
     files = np.array(list(map(lambda x: os.path.join(abs_path, x), files)))
-    files = files[np.random.randint(0, len(files), size=samples)]
+    np.random.shuffle(files)
+    files = files[:samples]
     tup_load = [(files[i:i + step], color_mode, height, width) for i in
                 range(0, len(files), step)]
     with Pool(workers) as p:
